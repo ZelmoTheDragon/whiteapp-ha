@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 /**
@@ -128,6 +129,18 @@ public final class Constraint {
      */
     public static boolean greaterThanOrEqualZero(final BigDecimal number) {
         return number.signum() >= 0;
+    }
+
+    /**
+     * Vérifier qu'un nombre soit dans un interval.
+     *
+     * @param start Limit basse exclue
+     * @param end Limite haute exclue
+     * @return La valeur <code>true</code> si le nombre est dans l'interval,
+     * sinon <code>false</code>
+     */
+    public static Predicate<Integer> inBetween(final int start, final int end) {
+        return i -> i > start && i < end;
     }
 
     /**
