@@ -37,7 +37,7 @@ public final class Customer {
         return Validator
                 .of(entity)
                 .validate(Customer::getEmail, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
-                .validate(Customer::getEmail, e -> Constraint.notEquals(e, Email.EMPTY), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
+                .validate(Customer::getEmail, Constraint.notEquals(Email.EMPTY), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
                 .validate(Customer::getGivenName, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
                 .validate(Customer::getFamilyName, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
                 .get();

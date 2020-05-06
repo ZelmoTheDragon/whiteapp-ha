@@ -201,6 +201,18 @@ public final class Constraint {
     }
 
     /**
+     * Vérifier que deux objets ne sont pas égaux.
+     *
+     * @param <T> Type quelconque
+     * @param other objet quelconque
+     * @return La valeur <code>true</code> si les deux objets ne sont pas égaux,
+     * sinon <code>false</code>
+     */
+    public static <T> Predicate<T> notEquals(final T other) {
+        return o -> !Objects.equals(o, other);
+    }
+
+    /**
      * Vérifier qu'une date est dans le passé.
      *
      * @param date Une date quelconque

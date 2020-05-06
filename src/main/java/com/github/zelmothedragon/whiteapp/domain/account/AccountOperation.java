@@ -38,9 +38,9 @@ public final class AccountOperation {
         return Validator
                 .of(entity)
                 .validate(AccountOperation::getEvent, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
-                .validate(AccountOperation::getEvent, e -> Constraint.notEquals(e, AccountEvent.EMPTY), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
+                .validate(AccountOperation::getEvent, Constraint.notEquals(AccountEvent.EMPTY), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
                 .validate(AccountOperation::getAmount, Objects::nonNull, Constraint.MESSAGE_NOT_NULL)
-                .validate(AccountOperation::getAmount, e -> Constraint.notEquals(e, BigDecimal.ZERO), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
+                .validate(AccountOperation::getAmount, Constraint.notEquals( BigDecimal.ZERO), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
                 .get();
     }
 
