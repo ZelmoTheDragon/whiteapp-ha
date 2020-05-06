@@ -18,11 +18,11 @@ public abstract class AbstractEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "VARCHAR(36)")
     protected UUID id;
 
     @Version
-    @Column(name = "version")
+    @Column(name = "version", nullable = false)
     protected Long version;
 
     protected AbstractEntity() {

@@ -19,7 +19,7 @@ public class CustomerBusiness {
         if (!repository.contains(customer.getEmail())) {
             repository.add(customer);
         } else {
-            throw new CustomerException("email already in use");
+            throw new CustomerException(CustomerException.MESSAGE_EMAIL_IN_USE);
         }
     }
 
@@ -27,7 +27,7 @@ public class CustomerBusiness {
         if (repository.contains(customer.getEmail())) {
             repository.add(customer);
         } else {
-            throw new CustomerException("unknow customer");
+            throw new CustomerException(CustomerException.MESSAGE_UNKNOW_ENTITY);
         }
     }
 
@@ -35,7 +35,7 @@ public class CustomerBusiness {
         if (repository.contains(customer.getEmail())) {
             repository.remove(customer);
         } else {
-            throw new CustomerException("unknow customer");
+            throw new CustomerException(CustomerException.MESSAGE_UNKNOW_ENTITY);
         }
     }
 
