@@ -24,8 +24,8 @@ public final class Email {
         var entity = new Email(email);
         return Validator
                 .of(entity)
-                .validate(Email::getEmail, Constraint::notEmpty, Constraint.MESSAGE_NOT_EMPTY)
-                .validate(Email::getEmail, Constraint::isEmailValid, Constraint.MESSAGE_INVALID_EMAIL)
+                .validate(Email::getEmail, Constraint::notEmpty, "email", Constraint.MESSAGE_NOT_EMPTY)
+                .validate(Email::getEmail, Constraint::isEmailValid, "email", Constraint.MESSAGE_INVALID_EMAIL)
                 .get();
     }
 

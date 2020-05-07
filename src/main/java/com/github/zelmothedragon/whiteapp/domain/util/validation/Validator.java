@@ -20,7 +20,7 @@ public final class Validator<T> {
     private final T element;
 
     /**
-     * Exceptions.
+     * Exceptions accumulées.
      */
     private final List<ValidationException> exceptions;
 
@@ -57,16 +57,18 @@ public final class Validator<T> {
      * Ajouter un prédicat de validation.
      *
      * @param validation Un prédicat
+     * @param attribut Nom de l'attribut à valider
      * @param message Un message en cas d'échec de la validation
      * @return L'instance de cette classe afin de chaîner les appels de méthodes
      */
     public Validator<T> validate(
             final Predicate<T> validation,
+            final String attribut,
             final String message) {
 
         final List<ValidationException> copy;
         if (!validation.test(element)) {
-            var ex = new ValidationException(message);
+            var ex = new ValidationException(attribut, message);
             copy = new ArrayList<>(exceptions);
             copy.add(ex);
         } else {
@@ -81,15 +83,17 @@ public final class Validator<T> {
      * @param <U> Type de retour de l'accesseur
      * @param getter Un accesseur
      * @param validation Un prédicat
+     * @param attribut Nom de l'attribut à valider
      * @param message Un message en cas d'échec de la validation
      * @return L'instance de cette classe afin de chaîner les appels de méthodes
      */
     public <U> Validator<T> validate(
             final Function<T, U> getter,
             final Predicate<U> validation,
+            final String attribut,
             final String message) {
 
-        return validate(getter.andThen(validation::test)::apply, message);
+        return validate(getter.andThen(validation::test)::apply, attribut, message);
     }
 
     /**

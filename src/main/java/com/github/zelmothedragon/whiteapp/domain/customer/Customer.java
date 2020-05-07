@@ -38,10 +38,10 @@ public final class Customer {
         var entity = new Customer(email, givenName, familyName);
         return Validator
                 .of(entity)
-                .validate(Customer::getEmail, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
-                .validate(Customer::getEmail, Constraint.notEquals(Email.EMPTY), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
-                .validate(Customer::getGivenName, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
-                .validate(Customer::getFamilyName, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
+                .validate(Customer::getEmail, Constraint::notNull, "email", Constraint.MESSAGE_NOT_NULL)
+                .validate(Customer::getEmail, Constraint.notEquals(Email.EMPTY), "email", Constraint.MESSAGE_NOT_EMPTY_OBJECT)
+                .validate(Customer::getGivenName, Constraint::notNull, "givenName", Constraint.MESSAGE_NOT_NULL)
+                .validate(Customer::getFamilyName, Constraint::notNull, "familyName", Constraint.MESSAGE_NOT_NULL)
                 .get();
     }
 

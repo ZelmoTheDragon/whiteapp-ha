@@ -32,4 +32,8 @@ public final class ValidationException extends RuntimeException {
         super(message);
     }
 
+    ValidationException(final String attribut, final String message) {
+        super(String.format("'%s': %s", attribut, message));
+    }
+
 }

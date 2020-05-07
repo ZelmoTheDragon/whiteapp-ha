@@ -35,10 +35,10 @@ public final class AccountEvent {
         var entity = new AccountEvent(email, dateOfEvent);
         return Validator
                 .of(entity)
-                .validate(AccountEvent::getEmail, Constraint::notEmpty, Constraint.MESSAGE_NOT_EMPTY)
-                .validate(AccountEvent::getEmail, Constraint::isEmailValid, Constraint.MESSAGE_INVALID_EMAIL)
-                .validate(AccountEvent::getDateOfEvent, Constraint::notNull, Constraint.MESSAGE_NOT_EMPTY)
-                .validate(AccountEvent::getDateOfEvent, e -> Constraint.notEquals(e, EmptyObject.EMPTY_DATE_TIME), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
+                .validate(AccountEvent::getEmail, Constraint::notEmpty, "email", Constraint.MESSAGE_NOT_EMPTY)
+                .validate(AccountEvent::getEmail, Constraint::isEmailValid, "email", Constraint.MESSAGE_INVALID_EMAIL)
+                .validate(AccountEvent::getDateOfEvent, Constraint::notNull, "dateOfEvent", Constraint.MESSAGE_NOT_EMPTY)
+                .validate(AccountEvent::getDateOfEvent, e -> Constraint.notEquals(e, EmptyObject.EMPTY_DATE_TIME), "dateOfEvent", Constraint.MESSAGE_NOT_EMPTY_OBJECT)
                 .get();
     }
 
