@@ -15,7 +15,7 @@ import java.util.function.Function;
  * @param <T> Type quelconque
  * @author MOSELLE Maxime
  */
-public final class Equal<T> {
+public final class Equals<T> {
 
     /**
      * Liste de fonctions utilisées pour la comparaison.
@@ -29,7 +29,7 @@ public final class Equal<T> {
      *
      * @param methods Liste de fonctions utilisées pour la comparaison
      */
-    private Equal(final List<Function<T, ?>> methods) {
+    private Equals(final List<Function<T, ?>> methods) {
         this.methods = List.copyOf(methods);
     }
 
@@ -43,8 +43,8 @@ public final class Equal<T> {
      * @return Une instance de cette classe afin de chaîner les appels de
      * méthodes
      */
-    public static <T> Equal<T> with(final Function<T, ?> method) {
-        return new Equal<>(List.of(method));
+    public static <T> Equals<T> with(final Function<T, ?> method) {
+        return new Equals<>(List.of(method));
     }
 
     /**
@@ -56,10 +56,10 @@ public final class Equal<T> {
      * @return Une instance de cette classe afin de chaîner les appels de
      * méthodes
      */
-    public Equal<T> thenWith(final Function<T, ?> method) {
+    public Equals<T> thenWith(final Function<T, ?> method) {
         var copy = new ArrayList<>(methods);
         copy.add(method);
-        return new Equal<>(copy);
+        return new Equals<>(copy);
     }
 
     /**

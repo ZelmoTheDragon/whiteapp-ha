@@ -1,5 +1,7 @@
 package com.github.zelmothedragon.whiteapp.domain.customer;
 
+import com.github.zelmothedragon.whiteapp.domain.util.lang.Equals;
+import com.github.zelmothedragon.whiteapp.domain.util.lang.ToString;
 import com.github.zelmothedragon.whiteapp.domain.util.validation.Constraint;
 import com.github.zelmothedragon.whiteapp.domain.util.validation.Validator;
 import java.util.Objects;
@@ -34,16 +36,16 @@ public final class Email {
 
     @Override
     public boolean equals(final Object obj) {
-        final boolean eq;
-        if (this == obj) {
-            eq = true;
-        } else if (!(obj instanceof Email)) {
-            eq = false;
-        } else {
-            final var other = (Email) obj;
-            eq = Objects.equals(email, other.email);
-        }
-        return eq;
+        return Equals
+                .with(Email::getEmail)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("email", Email::getEmail)
+                .apply(this);
     }
 
     public Email withEmail(final String email) {

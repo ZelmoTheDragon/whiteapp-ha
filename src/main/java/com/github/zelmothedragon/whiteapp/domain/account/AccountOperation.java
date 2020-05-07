@@ -1,5 +1,7 @@
 package com.github.zelmothedragon.whiteapp.domain.account;
 
+import com.github.zelmothedragon.whiteapp.domain.util.lang.Equals;
+import com.github.zelmothedragon.whiteapp.domain.util.lang.ToString;
 import com.github.zelmothedragon.whiteapp.domain.util.validation.Constraint;
 import com.github.zelmothedragon.whiteapp.domain.util.validation.Validator;
 import java.math.BigDecimal;
@@ -29,7 +31,7 @@ public final class AccountOperation {
         this.description = description;
     }
 
-    public AccountOperation of(
+    public static AccountOperation of(
             final AccountEvent event,
             final BigDecimal amount,
             final String description) {
@@ -40,8 +42,43 @@ public final class AccountOperation {
                 .validate(AccountOperation::getEvent, Constraint::notNull, Constraint.MESSAGE_NOT_NULL)
                 .validate(AccountOperation::getEvent, Constraint.notEquals(AccountEvent.EMPTY), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
                 .validate(AccountOperation::getAmount, Objects::nonNull, Constraint.MESSAGE_NOT_NULL)
-                .validate(AccountOperation::getAmount, Constraint.notEquals( BigDecimal.ZERO), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
+                .validate(AccountOperation::getAmount, Constraint.notEquals(BigDecimal.ZERO), Constraint.MESSAGE_NOT_EMPTY_OBJECT)
                 .get();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(event, amount, description);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return Equals
+                .with(AccountOperation::getEvent)
+                .thenWith(AccountOperation::getAmount)
+                .thenWith(AccountOperation::getDescription)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("event", AccountOperation::getEvent)
+                .thenWith("amount", AccountOperation::getAmount)
+                .thenWith("description", AccountOperation::getDescription)
+                .apply(this);
+    }
+
+    public AccountOperation withEvent(AccountEvent event) {
+        return AccountOperation.of(event, amount, description);
+    }
+
+    public AccountOperation withAmount(BigDecimal amount) {
+        return AccountOperation.of(event, amount, description);
+    }
+
+    public AccountOperation withDescription(String description) {
+        return AccountOperation.of(event, amount, description);
     }
 
     public AccountEvent getEvent() {

@@ -1,5 +1,7 @@
 package com.github.zelmothedragon.whiteapp.domain.customer;
 
+import com.github.zelmothedragon.whiteapp.domain.util.lang.Equals;
+import com.github.zelmothedragon.whiteapp.domain.util.lang.ToString;
 import com.github.zelmothedragon.whiteapp.domain.util.validation.Constraint;
 import com.github.zelmothedragon.whiteapp.domain.util.validation.Validator;
 import java.util.Objects;
@@ -50,18 +52,20 @@ public final class Customer {
 
     @Override
     public boolean equals(final Object obj) {
-        final boolean eq;
-        if (this == obj) {
-            eq = true;
-        } else if (!(obj instanceof Customer)) {
-            eq = false;
-        } else {
-            final var other = (Customer) obj;
-            eq = Objects.equals(email, other.email)
-                    && Objects.equals(givenName, other.givenName)
-                    && Objects.equals(familyName, other.familyName);
-        }
-        return eq;
+        return Equals
+                .with(Customer::getEmail)
+                .thenWith(Customer::getGivenName)
+                .thenWith(Customer::getFamilyName)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("email", Customer::getEmail)
+                .thenWith("givenName", Customer::getGivenName)
+                .thenWith("familyName", Customer::getFamilyName)
+                .apply(this);
     }
 
     public Customer withEmail(final Email email) {
