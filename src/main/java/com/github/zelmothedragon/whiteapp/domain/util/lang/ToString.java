@@ -7,7 +7,7 @@ import java.util.function.Function;
 /**
  * Génère une chaîne de caractères représentant les données d'un objet en
  * utilisant une approche fonctionnelle. Utile pour redéfinir la méthode
- * <code>toString</code>.
+ * <code>toString</code>. Cette classe est immuable.
  *
  *
  * @param <T> Type quelconque
@@ -28,13 +28,13 @@ public final class ToString<T> {
      * cette classe, utiliser la méthode <code>with</code> et chaîner les appels
      * de méthodes.
      *
-     * @param name Nom de l'attribut
-     * @param method Méthode permettant de renvoyer la valeur de l'attribut,
-     * généralement un accesseur
+     * @param methods Regroupe toutes les méthodes permettant la génération
+     * d'une chaîne de caractères représentant les données associé à un nom. Ce
+     * nom est généralement le nom de l'attribut. La méthode, quant à elle est
+     * générallement un accesseur
      */
-    private ToString(final String name, final Function<T, ?> method) {
-        this.methods = new HashMap<>();
-        this.methods.put(name, method);
+    private ToString(final Map<String, Function<T, ?>> methods) {
+        this.methods = Map.copyOf(methods);
     }
 
     /**
@@ -49,7 +49,7 @@ public final class ToString<T> {
      * méthodes
      */
     public static <T> ToString<T> with(final String name, final Function<T, ?> method) {
-        return new ToString<>(name, method);
+        return new ToString<>(Map.of(name, method));
     }
 
     /**
@@ -63,8 +63,9 @@ public final class ToString<T> {
      * méthodes
      */
     public ToString<T> thenWith(final String name, final Function<T, ?> method) {
-        this.methods.put(name, method);
-        return this;
+        var copy = new HashMap<>(methods);
+        copy.put(name, method);
+        return new ToString<>(copy);
     }
 
     /**
@@ -81,16 +82,37 @@ public final class ToString<T> {
                 .append(target.getClass().getSimpleName())
                 .append("{");
 
-        methods.forEach((k, v) -> {
-            sb
-                    .append(k)
-                    .append("=")
-                    .append(String.valueOf(v.apply(target)))
-                    .append(", ");
-        });
-        sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("}");
+        methods
+                .entrySet()
+                .stream()
+                .map(e -> append(e.getKey(), e.getValue(), target))
+                .reduce(sb, StringBuilder::append)
+                .deleteCharAt(sb.lastIndexOf(","))
+                .append("}");
+
         return sb.toString();
+    }
+
+    /**
+     *
+     * @param <T> Type quelconque
+     * @param name Nom de l'attribut
+     * @param method Méthode permettant de renvoyer la valeur de l'attribut,
+     * généralement un accesseur
+     * @param target Instance de travail
+     * @return Une chaine de caractère sous forme de clef/valeur d'un attribut
+     * de l'objet de travail
+     */
+    private static <T> StringBuilder append(
+            final String name,
+            final Function<T, ?> method,
+            final T target) {
+
+        return new StringBuilder()
+                .append(name)
+                .append("=")
+                .append(String.valueOf(method.apply(target)))
+                .append(", ");
     }
 
 }

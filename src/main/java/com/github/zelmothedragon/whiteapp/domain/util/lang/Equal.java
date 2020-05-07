@@ -10,7 +10,7 @@ import java.util.function.Function;
  * une approche fonctionnelle. Lors de la redéfinition de la méthode
  * <code>equals</code>, il est également nécessaire de redéfinir la méthode
  * <code>hashCode</code>. La classe <code>java.util.Objects</code> propose déjà
- * une manière simple pour cette méthode.
+ * une manière simple pour cette méthode. Cette classe est immuable.
  *
  * @param <T> Type quelconque
  * @author MOSELLE Maxime
@@ -27,12 +27,10 @@ public final class Equal<T> {
      * cette classe, utiliser la méthode <code>with</code> et chaîner les appels
      * de méthodes.
      *
-     * @param method Une méthode de l'instance initiale, en général des
-     * accesseurs sont employés
+     * @param methods Liste de fonctions utilisées pour la comparaison
      */
-    private Equal(final Function<T, ?> method) {
-        this.methods = new ArrayList<>();
-        this.methods.add(method);
+    private Equal(final List<Function<T, ?>> methods) {
+        this.methods = List.copyOf(methods);
     }
 
     /**
@@ -46,7 +44,7 @@ public final class Equal<T> {
      * méthodes
      */
     public static <T> Equal<T> with(final Function<T, ?> method) {
-        return new Equal<>(method);
+        return new Equal<>(List.of(method));
     }
 
     /**
@@ -59,8 +57,9 @@ public final class Equal<T> {
      * méthodes
      */
     public Equal<T> thenWith(final Function<T, ?> method) {
-        methods.add(method);
-        return this;
+        var copy = new ArrayList<>(methods);
+        copy.add(method);
+        return new Equal<>(copy);
     }
 
     /**

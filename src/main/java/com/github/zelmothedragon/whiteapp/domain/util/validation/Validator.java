@@ -7,7 +7,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * Génère une validation d'objet.
+ * Génère une validation d'objet. Cette classe est immuable.
  *
  * @author MOSELLE Maxime
  * @param <T> Type de l'objet à valider
@@ -30,10 +30,11 @@ public final class Validator<T> {
      * de méthodes.
      *
      * @param element Instance à valider
+     * @param exceptions Liste des exceptions accumulées
      */
-    private Validator(final T element) {
+    private Validator(final T element, final List<ValidationException> exceptions) {
         this.element = element;
-        this.exceptions = new ArrayList<>();
+        this.exceptions = List.copyOf(exceptions);
     }
 
     /**
@@ -46,7 +47,10 @@ public final class Validator<T> {
      * méthodes
      */
     public static <E> Validator<E> of(final E element) {
-        return new Validator<>(Objects.requireNonNull(element));
+        return new Validator<>(
+                Objects.requireNonNull(element),
+                List.of()
+        );
     }
 
     /**
@@ -60,10 +64,15 @@ public final class Validator<T> {
             final Predicate<T> validation,
             final String message) {
 
+        final List<ValidationException> copy;
         if (!validation.test(element)) {
-            exceptions.add(new ValidationException(message));
+            var ex = new ValidationException(message);
+            copy = new ArrayList<>(exceptions);
+            copy.add(ex);
+        } else {
+            copy = List.copyOf(exceptions);
         }
-        return this;
+        return new Validator<>(element, copy);
     }
 
     /**
