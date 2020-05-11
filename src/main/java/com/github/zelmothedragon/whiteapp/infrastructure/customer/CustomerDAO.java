@@ -4,8 +4,10 @@ import com.github.zelmothedragon.whiteapp.domain.customer.Customer;
 import com.github.zelmothedragon.whiteapp.domain.customer.CustomerRepository;
 import com.github.zelmothedragon.whiteapp.domain.customer.Email;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -14,8 +16,7 @@ import javax.inject.Inject;
  * @author MOSELLE Maxime
  */
 @ApplicationScoped
-public class CustomerDAO implements CustomerRepository,
-        PanacheRepositoryBase<CustomerEntity, UUID> {
+public class CustomerDAO implements CustomerRepository, PanacheRepositoryBase<CustomerEntity, UUID> {
 
     @Inject
     private CustomerMapper mapper;
@@ -51,4 +52,10 @@ public class CustomerDAO implements CustomerRepository,
                 .map(mapper::toObject);
     }
 
+    @Override
+    public List<Customer> get() {
+        return streamAll()
+                .map(mapper::toObject)
+                .collect(Collectors.toList());
+    }
 }

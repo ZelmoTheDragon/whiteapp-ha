@@ -3,10 +3,12 @@ package com.github.zelmothedragon.whiteapp.infrastructure;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -17,10 +19,14 @@ public abstract class AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
+    @JsonbTransient
     @Id
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
     protected UUID id;
 
+    @NotNull
+    @JsonbTransient
     @Version
     @Column(name = "version", nullable = false)
     protected Long version;

@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.whiteapp.domain.customer;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  *
@@ -43,7 +43,7 @@ public class CustomerBusiness {
         return repository.get(email);
     }
 
-    public Set<Customer> search() {
-        return Set.of();
+    public List<Customer> find() {
+        return repository.get();
     }
 }

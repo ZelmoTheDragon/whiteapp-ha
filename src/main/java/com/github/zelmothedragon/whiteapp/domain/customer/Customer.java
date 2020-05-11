@@ -40,8 +40,8 @@ public final class Customer {
                 .of(entity)
                 .validate(Customer::getEmail, Constraint::notNull, "email", Constraint.MESSAGE_NOT_NULL)
                 .validate(Customer::getEmail, Constraint.notEquals(Email.EMPTY), "email", Constraint.MESSAGE_NOT_EMPTY_OBJECT)
-                .validate(Customer::getGivenName, Constraint::notNull, "givenName", Constraint.MESSAGE_NOT_NULL)
-                .validate(Customer::getFamilyName, Constraint::notNull, "familyName", Constraint.MESSAGE_NOT_NULL)
+                .validate(Customer::getGivenName, Constraint::notEmpty, "givenName", Constraint.MESSAGE_NOT_EMPTY)
+                .validate(Customer::getFamilyName, Constraint::notEmpty, "familyName", Constraint.MESSAGE_NOT_EMPTY)
                 .get();
     }
 

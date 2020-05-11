@@ -3,7 +3,9 @@ package com.github.zelmothedragon.whiteapp.infrastructure.customer;
 import com.github.zelmothedragon.whiteapp.domain.customer.CustomerBusiness;
 import com.github.zelmothedragon.whiteapp.domain.customer.Email;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -35,19 +37,19 @@ public class CustomerService implements Serializable {
     }
 
     @Transactional
-    public void register(CustomerEntity entity) {
+    public void register(final CustomerEntity entity) {
         var dto = mapper.toObject(entity);
         business.register(dto);
     }
 
     @Transactional
-    public void update(CustomerEntity entity) {
+    public void update(final CustomerEntity entity) {
         var dto = mapper.toObject(entity);
         business.update(dto);
     }
 
     @Transactional
-    public void remove(CustomerEntity entity) {
+    public void remove(final CustomerEntity entity) {
         var dto = mapper.toObject(entity);
         business.register(dto);
     }
@@ -56,6 +58,14 @@ public class CustomerService implements Serializable {
         return business
                 .find(Email.of(email))
                 .map(mapper::fromObject);
+    }
+    
+    public List<CustomerEntity> find(){
+        return business
+                .find()
+                .stream()
+                .map(mapper::fromObject)
+                .collect(Collectors.toList());
     }
 
 }
