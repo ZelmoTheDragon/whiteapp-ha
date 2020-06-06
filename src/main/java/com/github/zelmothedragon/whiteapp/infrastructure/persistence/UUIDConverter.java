@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whiteapp.infrastructure;
+package com.github.zelmothedragon.whiteapp.infrastructure.persistence;
 
 import java.util.Objects;
 import java.util.UUID;

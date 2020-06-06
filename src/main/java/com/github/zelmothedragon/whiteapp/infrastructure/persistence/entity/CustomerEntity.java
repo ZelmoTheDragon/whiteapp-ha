@@ -1,6 +1,5 @@
-package com.github.zelmothedragon.whiteapp.infrastructure.customer;
+package com.github.zelmothedragon.whiteapp.infrastructure.persistence.entity;
 
-import com.github.zelmothedragon.whiteapp.infrastructure.AbstractEntity;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.config.PropertyOrderStrategy;

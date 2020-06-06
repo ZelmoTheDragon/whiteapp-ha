@@ -11,13 +11,13 @@ import java.util.Optional;
  */
 public interface Repository<E, K> {
 
-    boolean contains(K email);
+    boolean contains(K id);
 
-    void add(E customer);
+    void add(E entity);
 
-    void remove(E customer);
+    void remove(E entity);
 
-    Optional<E> get(K email);
+    Optional<E> get(K id);
     
     List<E> get();
 }

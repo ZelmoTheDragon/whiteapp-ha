@@ -1,8 +1,10 @@
-package com.github.zelmothedragon.whiteapp.infrastructure.customer;
+package com.github.zelmothedragon.whiteapp.infrastructure.persistence.dao;
 
+import com.github.zelmothedragon.whiteapp.infrastructure.persistence.entity.CustomerEntity;
 import com.github.zelmothedragon.whiteapp.domain.customer.Customer;
 import com.github.zelmothedragon.whiteapp.domain.customer.CustomerRepository;
 import com.github.zelmothedragon.whiteapp.domain.customer.Email;
+import com.github.zelmothedragon.whiteapp.infrastructure.mapper.CustomerMapper;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import java.util.List;
 import java.util.Optional;

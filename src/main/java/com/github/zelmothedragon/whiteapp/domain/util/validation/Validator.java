@@ -66,6 +66,9 @@ public final class Validator<T> {
             final String attribut,
             final String message) {
 
+        // XXX.getEmail() != null
+        // customer.getr
+        
         final List<ValidationException> copy;
         if (!validation.test(element)) {
             var ex = new ValidationException(attribut, message);
@@ -93,6 +96,8 @@ public final class Validator<T> {
             final String attribut,
             final String message) {
 
+        // XXX.getEmail() != null
+        
         return validate(getter.andThen(validation::test)::apply, attribut, message);
     }
 

@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whiteapp.infrastructure;
+package com.github.zelmothedragon.whiteapp.infrastructure.mapper;
 
 public interface Mapper<A, B> {
 

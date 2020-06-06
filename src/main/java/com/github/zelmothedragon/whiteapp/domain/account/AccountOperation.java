@@ -43,6 +43,7 @@ public final class AccountOperation {
                 .validate(AccountOperation::getEvent, Constraint.notEquals(AccountEvent.EMPTY), "event", Constraint.MESSAGE_NOT_EMPTY_OBJECT)
                 .validate(AccountOperation::getAmount, Objects::nonNull, "amount", Constraint.MESSAGE_NOT_NULL)
                 .validate(AccountOperation::getAmount, Constraint.notEquals(BigDecimal.ZERO), "amount", Constraint.MESSAGE_NOT_EMPTY_OBJECT)
+                .validate(AccountOperation::getDescription, Constraint::notEmpty, "description", Constraint.MESSAGE_NOT_EMPTY)
                 .get();
     }
 

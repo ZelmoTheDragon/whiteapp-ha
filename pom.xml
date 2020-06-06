@@ -59,6 +59,11 @@
             <artifactId>quarkus-resteasy-jsonb</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     
     <build>

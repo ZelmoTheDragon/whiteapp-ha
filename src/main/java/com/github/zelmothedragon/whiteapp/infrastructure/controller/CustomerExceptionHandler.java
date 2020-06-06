@@ -1,7 +1,7 @@
-package com.github.zelmothedragon.whiteapp.infrastructure.customer;
+package com.github.zelmothedragon.whiteapp.infrastructure.controller;
 
 import com.github.zelmothedragon.whiteapp.domain.customer.CustomerException;
-import com.github.zelmothedragon.whiteapp.infrastructure.ErrorMessage;
+import com.github.zelmothedragon.whiteapp.infrastructure.controller.ErrorMessage;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

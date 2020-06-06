@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whiteapp.infrastructure;
+package com.github.zelmothedragon.whiteapp.infrastructure.controller;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;

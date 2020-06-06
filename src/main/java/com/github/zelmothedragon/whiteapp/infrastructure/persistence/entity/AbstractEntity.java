@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whiteapp.infrastructure;
+package com.github.zelmothedragon.whiteapp.infrastructure.persistence.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

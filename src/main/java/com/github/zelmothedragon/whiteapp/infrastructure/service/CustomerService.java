@@ -1,5 +1,8 @@
-package com.github.zelmothedragon.whiteapp.infrastructure.customer;
+package com.github.zelmothedragon.whiteapp.infrastructure.service;
 
+import com.github.zelmothedragon.whiteapp.infrastructure.mapper.CustomerMapper;
+import com.github.zelmothedragon.whiteapp.infrastructure.persistence.dao.CustomerDAO;
+import com.github.zelmothedragon.whiteapp.infrastructure.persistence.entity.CustomerEntity;
 import com.github.zelmothedragon.whiteapp.domain.customer.CustomerBusiness;
 import com.github.zelmothedragon.whiteapp.domain.customer.Email;
 import java.io.Serializable;

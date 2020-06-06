@@ -9,6 +9,7 @@ import java.util.Objects;
 /**
  *
  * @author MOSELLE Maxime
+ * 
  */
 public final class Customer {
 
